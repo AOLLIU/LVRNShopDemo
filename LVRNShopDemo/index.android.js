@@ -4,50 +4,43 @@
  * @flow
  */
 
+//导入系统组件
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    Navigator,
 } from 'react-native';
 
+
+//启动图片安卓
+var LVAndroidLaunchPage = require('./Component/Main/LVAndroidLaunchPage');
+
+//创建组件
 export default class LVRNShopDemo extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+        <Navigator
+            initialRoute={{ name: 'Launch', component: LVAndroidLaunchPage }}
+            configureScene={(route) => { //过渡动画
+                            return Navigator.SceneConfigs.PushFromRight;
+                        }}
+            renderScene={(route, navigator) => {
+                            let Component = route.component;
+                            return <Component {...route.params} navigator={navigator}                                   />
+                        }}
+        />
     );
   }
 }
-
+//创建样式
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    
   },
 });
 
+//注册整个应用组件
 AppRegistry.registerComponent('LVRNShopDemo', () => LVRNShopDemo);
